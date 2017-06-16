@@ -5,6 +5,11 @@
 	<title>Home</title>
 </head>
 <body>
+
+	<a href="notice/noticeList">noticeList</a>
+	<br>
+	<br>
+	<a href="freeboard/freeboardList">freeboardList</a>
 <h1>
 	Hello world!  
 </h1>
