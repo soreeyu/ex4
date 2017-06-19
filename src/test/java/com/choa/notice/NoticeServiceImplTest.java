@@ -8,7 +8,7 @@ public class NoticeServiceImplTest extends MyAbstractTest{
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		
 	}
 
 }

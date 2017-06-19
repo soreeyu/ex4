@@ -38,14 +38,14 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping(value="freeboardWrite" , method=RequestMethod.POST)
-	public String FreeboardWrite(Model model,FreeboardDTO freeboardDTO) throws Exception{
+	public String FreeboardWrite(RedirectAttributes redirectAttributes,FreeboardDTO freeboardDTO) throws Exception{
 		int result =freeboardService.boardWrite(freeboardDTO);
 		String msg = "FAIL";
 		if(result > 0){
 			msg = "SUCCESS";
 		}
 		
-		model.addAttribute("message", msg);
+		redirectAttributes.addFlashAttribute("message", msg);
 		return "redirect:freeboardList";
 	}
 	
@@ -77,6 +77,20 @@ public class FreeboardController {
 			message = "SUCCESS";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
+		return "redirect:/freeboard/freeboardList";
+	}
+	
+	@RequestMapping(value="freeboardDelete", method=RequestMethod.GET)
+	public String FreeboardDelete(RedirectAttributes redirectAttributes, Integer num) throws Exception{
+		
+		int result = freeboardService.boardDelete(num);
+		
+		String messege ="FAIL";
+		if(result > 0){
+			messege = "SUCCESS";
+		}
+		redirectAttributes.addFlashAttribute("message", messege);
+		
 		return "redirect:/freeboard/freeboardList";
 	}
 	
