@@ -4,6 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="NoticeMapper">
+  
+  	<sql id="search">
+  		<trim prefix="where" prefixOverrides="and || or">
+  			<if test="kind == 'title'">
+	  			title  like '%' || #{search} || '%'
+	  		</if>
+	  		<if test="kind == 'writer'">
+	  			writer  like '%' || #{search} || '%'
+	  		</if>
+	  		<if test="kind == 'contents'">
+	  			contents  like '%' || #{search} || '%'
+	  		</if>
+  		</trim>
+  	</sql>
   	
   	<select id="view" resultType="com.choa.notice.NoticeDTO" parameterType="java.lang.Integer">
   		select * from notice where num=#{num}<!-- 파라미터이름 -->
@@ -22,15 +36,18 @@
   		delete notice where num =#{num}
   	</delete>
   	
-  	<select id="list" resultType="com.choa.notice.NoticeDTO" parameterType="com.choa.util.RowMaker">
+  	<select id="list" resultType="com.choa.notice.NoticeDTO" parameterType="com.choa.util.ListInfo">
   		select * from 
   		(select N.*,rownum R from 
-  		(select * from notice order by num desc) N ) 
+  		(select * from notice
+  		<include refid="search"/>
+  	 	 order by num desc) N ) 
   		where R between #{startRow} and #{lastRow}
   	</select>
   	
-  	<select id="count" resultType="java.lang.Integer">
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.choa.util.ListInfo">
   		select nvl(count(num),0) from notice
+  		<include refid="search"/>
   	</select>
   	
   </mapper>

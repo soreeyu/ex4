@@ -2,6 +2,7 @@ package com.choa.notice;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import com.choa.board.BoardDTO;
+import com.choa.util.ListInfo;
 import com.choa.util.PageMaker;
 import com.choa.util.RowMaker;
 
@@ -57,18 +59,22 @@ public class NoticeDAOImplTest extends MyAbstractTest{
 	
 	
 	public void list() throws Exception{
-		PageMaker pageMaker = new PageMaker(1);
+		/*PageMaker pageMaker = new PageMaker(1);
 		RowMaker rowMaker = pageMaker.getRowMaker();
-		List<BoardDTO> ar = noticeDAOImpl.boardList(rowMaker);
+		List<BoardDTO> ar = noticeDAOImpl.boardList();
+		System.out.println(ar.size());*/
 		
-		System.out.println(ar.size());
+		
 	}
 	
 	@Test
 	public void count() throws Exception{
-		
-		int result = noticeDAOImpl.boardCount();
+		ListInfo listInfo = new ListInfo();
+		listInfo.setSearch("choa");
+		listInfo.setKind("writer");
+		int result = noticeDAOImpl.boardCount(listInfo);
 		System.out.println(result);
+		assertNotEquals(0, result);
 	}
 
 }
