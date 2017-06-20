@@ -16,6 +16,18 @@
 <body>
 	<h1>${board}</h1>
 	
+		<div>
+			<form action="${board }List">
+				<select name="search">
+					<option value="title">TITLE</option>
+					<option value="writer">WRITER</option>
+					<option value="contents">CONTENTS</option>
+				</select>
+				<input type="text" name="find">
+				<input type="submit" value="SEARCH">
+			</form>
+		</div>
+	
 		<table>
 			<tr>
 				<td>Num</td><td>Title</td><td>Writer</td><td>Contents</td><td>Date</td><td>Hit</td>
